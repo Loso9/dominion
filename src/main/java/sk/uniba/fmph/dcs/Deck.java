@@ -4,9 +4,10 @@ import java.util.*;
 
 public class Deck {
 
-    private LinkedList<CardInterface> deckOfCards;
+    private final LinkedList<CardInterface> deckOfCards;
+    private DiscardPile discardPile;
 
-    public Deck() {
+    public Deck(DiscardPile discardPile) {
         deckOfCards = new LinkedList<>();
         for (int i = 0; i < 3; i++) {
             deckOfCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
@@ -16,24 +17,30 @@ public class Deck {
             deckOfCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }
         shuffle();
+        this.discardPile = discardPile;
     }
 
-    public Deck(List<CardInterface> deckOfCards) {
-        this.deckOfCards = new LinkedList<>(deckOfCards);
-    }
-
-    public List<CardInterface> draw(Integer count) {
-        int cardCount = count;
-        ArrayList<CardInterface> returnList = new ArrayList<>();
-        while (cardCount --> 0) {
-            returnList.add(deckOfCards.removeFirst());
-        }
-
-        return Collections.unmodifiableList(returnList);
+    public Deck(List<CardInterface> cards) {
+        this.deckOfCards = new LinkedList<>(cards);
     }
 
     public void shuffle() {
         Collections.shuffle(deckOfCards);
+    }
+
+    public List<CardInterface> draw(Integer count) {
+        Integer cardCount = count;
+        if (cardCount > deckOfCards.size()) {
+            deckOfCards.addAll(discardPile.shuffle());
+        }
+        if (cardCount > deckOfCards.size()) {
+            cardCount = deckOfCards.size();
+        }
+        ArrayList<CardInterface> returnList = new ArrayList<>();
+        while (cardCount --> 0) {
+            returnList.add(deckOfCards.removeFirst());
+        }
+        return Collections.unmodifiableList(returnList);
     }
 
     public LinkedList<CardInterface> getDeckOfCards() {
