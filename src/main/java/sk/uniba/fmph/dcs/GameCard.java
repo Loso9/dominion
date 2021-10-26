@@ -1,23 +1,23 @@
 package sk.uniba.fmph.dcs;
 
-public class GameCard implements CardInterface {
-    private GameCardType gameCardType;
+import java.util.*;
 
-    public GameCard() {
-        this.gameCardType = null;
-    }
+public class GameCard implements CardInterface {
+
+    private final GameCardType gameCardType;
 
     public GameCard(GameCardType gameCardType) {
         this.gameCardType = gameCardType;
     }
 
-    public void setGameCard(GameCardType gameCardType) {
-        this.gameCardType = gameCardType;
-    }
-
     @Override
-    public void evaluate(TurnStatus ts) {
-
+    public Map.Entry<Integer, CardInterface> evaluate(TurnStatus ts) {
+        ts.addActions(gameCardType.getPlusActions());
+        ts.addCoins(gameCardType.getPlusCoins());
+        ts.addBuys(gameCardType.getPlusBuys());
+        int plusCards = gameCardType.getPlusCards();
+        GameCard card = new GameCard(gameCardType);
+        return new AbstractMap.SimpleEntry<>(plusCards, card);
     }
 
     @Override
