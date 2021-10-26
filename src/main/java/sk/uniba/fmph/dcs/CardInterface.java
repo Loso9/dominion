@@ -1,7 +1,9 @@
 package sk.uniba.fmph.dcs;
 
+import java.util.*;
+
 interface CardInterface {
-    void evaluate(TurnStatus ts);
+    Map.Entry<Integer, CardInterface> evaluate(TurnStatus ts);
     GameCardType cardType();
 }
 
