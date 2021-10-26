@@ -1,4 +1,5 @@
 package sk.uniba.fmph.dcs;
 
-public class EndGameStrategy {
+public interface EndGameStrategy {
+    boolean isGameOver();
 }
