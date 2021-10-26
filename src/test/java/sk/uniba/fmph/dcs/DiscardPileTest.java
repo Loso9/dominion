@@ -7,17 +7,18 @@ import static org.junit.Assert.assertTrue;
 
 
 class FakeCard implements CardInterface {
-    private GameCardType _cardType;
+    private GameCardType cardType;
     
-    FakeCard(GameCardType __cardType) {
-        _cardType = __cardType;
+    FakeCard(GameCardType cardType) {
+        this.cardType = cardType;
     }
     
-    public void evaluate(TurnStatus t) {
+    public Map.Entry<Integer, CardInterface> evaluate(TurnStatus t) {
+        return null;
     }
 
     public GameCardType cardType() {
-    	return _cardType;
+    	return cardType;
     }
 }
 
@@ -36,11 +37,11 @@ public class DiscardPileTest  {
     }
 
     void setUp() {
-        pile1 = new DiscardPile(new ArrayList<CardInterface>() {{
+        pile1 = new DiscardPile(new ArrayList<>() {{
             add(new FakeCard(GameCardType.GAME_CARD_TYPE_ESTATE));
             add(new FakeCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }});
-        pile2 = new DiscardPile(new ArrayList<CardInterface>());
+        pile2 = new DiscardPile(new ArrayList<>());
     }
     
     @Test
@@ -54,12 +55,12 @@ public class DiscardPileTest  {
     public void test_add_cards_and_get_size() {
     	setUp();
         assertEquals(pile2.getSize(), 0);
-        pile2.addCards(new ArrayList<CardInterface>() {{
+        pile2.addCards(new ArrayList<>() {{
             add(new FakeCard(GameCardType.GAME_CARD_TYPE_ESTATE));
         }});
         assertEquals(pile2.getSize(), 1);
         assertTopIs(pile2, "Estate");
-        pile2.addCards(new ArrayList<CardInterface>() {{
+        pile2.addCards(new ArrayList<>() {{
             add(new FakeCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }});
         assertEquals(pile2.getSize(), 2);
