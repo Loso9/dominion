@@ -8,6 +8,8 @@ public class Game {
     private boolean isActionPhase = false;
     private final Turn turn;
     private ArrayList<BuyDeck> supply; //balicek balickov kariet
+    private boolean end = false;
+    private TurnStatus ts;
 
     /*
     pripadne List<BuyDeck> priamo v konstruktore Game
@@ -36,7 +38,7 @@ public class Game {
         Deck deck = new Deck(discardPile);
         //inicialize turnstatus
         setActionPhase(false);
-        TurnStatus ts = new TurnStatus();
+        this.ts = new TurnStatus();
         ts.addActions(1);
         ts.addBuys(1);
         ts.addCoins(0);
@@ -75,10 +77,19 @@ public class Game {
         if (isGameOver()) {
             return false;
         }
+        turn.endTurn();
+
         return turn.endTurn();
     }
 
     public boolean isGameOver() {
         return endGameStrategy.isGameOver();
+    }
+
+    public void endTheGame() {
+        turn.setPoints();
+        if (ts.getPoints() >= 15) {
+            end = true;
+        }
     }
 }

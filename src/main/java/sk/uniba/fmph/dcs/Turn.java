@@ -61,11 +61,6 @@ public class Turn {
         else return false;
     }
 
-    /*
-    public boolean firstTurn() {
-        return false;
-    }
-    */
 
     public BuyDeck findBuyDeck(CardInterface card) {
         GameCardType cardType = card.cardType();
