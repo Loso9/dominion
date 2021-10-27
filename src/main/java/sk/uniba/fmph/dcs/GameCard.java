@@ -11,13 +11,14 @@ public class GameCard implements CardInterface {
     }
 
     @Override
-    public Map.Entry<Integer, CardInterface> evaluate(TurnStatus ts) {
+    public int evaluate(TurnStatus ts) {
         ts.addActions(gameCardType.getPlusActions());
         ts.addCoins(gameCardType.getPlusCoins());
         ts.addBuys(gameCardType.getPlusBuys());
-        int plusCards = gameCardType.getPlusCards();
-        GameCard card = new GameCard(gameCardType);
-        return new AbstractMap.SimpleEntry<>(plusCards, card);
+        //int plusCards = gameCardType.getPlusCards();
+        return gameCardType.getPlusCards();
+        //GameCard card = new GameCard(gameCardType);
+        //return new AbstractMap.SimpleEntry<>(plusCards);
     }
 
     @Override

@@ -13,8 +13,8 @@ class FakeCard implements CardInterface {
         this.cardType = cardType;
     }
     
-    public Map.Entry<Integer, CardInterface> evaluate(TurnStatus t) {
-        return null;
+    public int evaluate(TurnStatus t) {
+        return 0;
     }
 
     public GameCardType cardType() {

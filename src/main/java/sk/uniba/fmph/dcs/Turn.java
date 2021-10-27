@@ -27,7 +27,8 @@ public class Turn {
 
     public boolean playCard(Integer index) {
         if (ts.getActions() > 0 && hand.isCardInHand(index) && hand.isActionCard(index)) {
-            hand.play(index);
+            Optional<CardInterface> cardToPlay = hand.play(index);
+            cardToPlay.ifPresent(cardInterface -> play.putTo(cardInterface));
             return true;
         }
         return false;
@@ -36,7 +37,7 @@ public class Turn {
     public boolean buyCard(CardInterface card) {
         BuyDeck buyDeck = findBuyDeck(card);
         if (ts.getBuys() > 0 && !buyDeck.isEmpty()) {
-            Optional<CardInterface> newCard= buyDeck.buy();
+            Optional<CardInterface> newCard = buyDeck.buy();
             if (newCard.isPresent()) {
                 hand.addCardToHand(newCard.get());
                 return true;
@@ -69,5 +70,9 @@ public class Turn {
             }
         }
         return null;
+    }
+
+    public boolean isGameOver() {
+        return false;
     }
 }

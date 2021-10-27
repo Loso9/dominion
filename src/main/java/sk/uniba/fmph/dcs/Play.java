@@ -8,8 +8,10 @@ public class Play {
     private DiscardPile discardPile;
     private final TurnStatus ts;
     private final Hand hand;
+    private final Deck deck;
 
-    public Play(Hand hand, DiscardPile discardPile, TurnStatus ts) {
+    public Play(Deck deck, Hand hand, DiscardPile discardPile, TurnStatus ts) {
+        this.deck = deck;
         this.hand = hand;
         cardsInPlay = new ArrayList<>();
         this.discardPile = discardPile;
@@ -19,14 +21,11 @@ public class Play {
     public void putTo(CardInterface card) {
         assert card != null;
         cardsInPlay.add(card);
-        Map.Entry<Integer, CardInterface> map_entry = card.evaluate(ts);
-        if (map_entry == null) {
+        int cardsToDraw = card.evaluate(ts);
+        if (cardsToDraw == 0) {
             return;
         }
-        ArrayList<CardInterface> newCards = new ArrayList<>();
-        for (int i = 0; i < map_entry.getKey(); i++) {
-            newCards.add(map_entry.getValue());
-        }
+        ArrayList<CardInterface> newCards = new ArrayList<>(deck.draw(cardsToDraw));
         hand.addCardsToHand(newCards);
     }
 

@@ -5,8 +5,8 @@ import java.util.*;
 public class Game {
 
     private EndGameStrategy endGameStrategy;
-    private boolean isActionPhase;
-    private boolean isBuyPhase;
+    private boolean isActionPhase = false;
+    private boolean isBuyPhase = false;
     private final Turn turn;
     private ArrayList<BuyDeck> supply; //balicek balickov kariet
 
@@ -42,7 +42,7 @@ public class Game {
         ts.addBuys(1);
         ts.addCoins(0);
         Hand hand = new Hand(deck);
-        Play play = new Play(hand, discardPile, ts);
+        Play play = new Play(deck, hand, discardPile, ts);
         turn = new Turn(ts, hand, deck, discardPile, play, this.supply);
     }
 
@@ -85,5 +85,9 @@ public class Game {
             return turn.endTurn();
         }
         return false;
+    }
+
+    public boolean isGameOver() {
+        return endGameStrategy.isGameOver();
     }
 }
