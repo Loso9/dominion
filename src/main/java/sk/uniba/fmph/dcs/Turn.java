@@ -26,17 +26,20 @@ public class Turn {
     }
 
     public boolean playCard(Integer index) {
-        if (ts.getActions() > 0 && hand.isCardInHand(index) && hand.isActionCard(index)) {
-            Optional<CardInterface> cardToPlay = hand.play(index);
-            cardToPlay.ifPresent(cardInterface -> play.putTo(cardInterface));
-            return true;
+        if (!hand.isCardInHand(index)) return false;
+        if (hand.isActionCard(index) && ts.getActions() > 0) {
+            ts.addActions(ts.getActions() - 1);
         }
-        return false;
+        else return false;
+        Optional<CardInterface> cardToPlay = hand.play(index);
+        cardToPlay.ifPresent(cardInterface -> play.putTo(cardInterface));
+        return true;
     }
 
     public boolean buyCard(CardInterface card) {
         BuyDeck buyDeck = findBuyDeck(card);
-        if (ts.getBuys() > 0 && !buyDeck.isEmpty()) {
+        if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= card.cardType().getCost()) {
+            ts.addCoins(-card.cardType().getCost());
             Optional<CardInterface> newCard = buyDeck.buy();
             if (newCard.isPresent()) {
                 hand.addCardToHand(newCard.get());
@@ -51,6 +54,8 @@ public class Turn {
             discardPile.addCards(play.throwAll());
             discardPile.addCards(hand.throwCards());
             endTurnCalled = true;
+            resetTurnStatus();
+            hand.addCardsToHand(deck.draw(5));
             return true;
         }
         else return false;
@@ -72,7 +77,23 @@ public class Turn {
         return null;
     }
 
-    public boolean isGameOver() {
-        return false;
+    public void resetTurnStatus() {
+        ts.setCoins(0);
+        ts.setActions(1);
+        ts.setBuys(1);
+    }
+
+    public void setPoints() {
+        int points = 0;
+        ArrayList<CardInterface> cardsFromDeck = new ArrayList<>(deck.getDeckOfCards());
+        cardsFromDeck.addAll(hand.getCards());
+        cardsFromDeck.addAll(discardPile.getCards());
+        for (CardInterface cardInterface : cardsFromDeck) {
+            if (cardInterface.equals(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE))) {
+                points++;
+            }
+        }
+        ts.setPoints(points);
+
     }
 }

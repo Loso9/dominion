@@ -7,10 +7,8 @@ public class BuyDeck {
     private final ArrayList<CardInterface> supply;
     private int countCard;
     private final GameCardType gameCardType;
-    private final TurnStatus ts;
 
-    public BuyDeck(TurnStatus ts, GameCardType gameCardType, int countCard) {
-        this.ts = ts;
+    public BuyDeck(GameCardType gameCardType, int countCard) {
         this.gameCardType = gameCardType;
         this.supply = new ArrayList<>();
         this.countCard = countCard;
@@ -20,11 +18,9 @@ public class BuyDeck {
     }
 
     public Optional<CardInterface> buy() {
-        CardInterface card = null;
-        if (ts.getBuys() > 0) {
-            card = supply.remove(0);
-            countCard--;
-        }
+        CardInterface card;
+        card = supply.remove(0);
+        countCard--;
         return Optional.ofNullable(card);
     }
 

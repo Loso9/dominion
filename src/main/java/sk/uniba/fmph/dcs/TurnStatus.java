@@ -4,11 +4,13 @@ public class TurnStatus {
     private int actions;
     private int buys;
     private int coins;
+    private int points;
 
     public TurnStatus() {
         this.actions = 0;
         this.buys = 0;
         this.coins = 0;
+        this.points = 0;
     }
 
     @Override
@@ -58,5 +60,30 @@ public class TurnStatus {
 
     public void addCoins(int coins) {
         this.coins += coins;
+    }
+
+    public void setActions(int actions) {
+        this.actions = actions;
+    }
+
+    public void setBuys(int buys) {
+        this.buys = buys;
+
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
     }
 }

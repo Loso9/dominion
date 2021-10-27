@@ -47,4 +47,8 @@ public class Hand {
     public void addCardToHand(CardInterface card) {
         cardsInHand.add(card);
     }
+
+    public List<CardInterface> getCards() {
+        return cardsInHand;
+    }
 }

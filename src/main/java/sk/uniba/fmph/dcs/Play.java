@@ -5,16 +5,14 @@ import java.util.*;
 public class Play {
 
     private final ArrayList<CardInterface> cardsInPlay;
-    private DiscardPile discardPile;
     private final TurnStatus ts;
     private final Hand hand;
     private final Deck deck;
 
-    public Play(Deck deck, Hand hand, DiscardPile discardPile, TurnStatus ts) {
+    public Play(Deck deck, Hand hand, TurnStatus ts) {
         this.deck = deck;
         this.hand = hand;
         cardsInPlay = new ArrayList<>();
-        this.discardPile = discardPile;
         this.ts = ts;
     }
 

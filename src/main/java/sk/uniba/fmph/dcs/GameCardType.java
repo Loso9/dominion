@@ -25,6 +25,10 @@ public class GameCardType {
         this.name = name;
         this.description = description;
     }
+
+    public int getCost() {
+        return cost;
+    }
     
     public int getPlusActions() {
         return plusActions;

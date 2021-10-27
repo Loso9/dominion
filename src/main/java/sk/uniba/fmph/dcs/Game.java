@@ -6,7 +6,6 @@ public class Game {
 
     private EndGameStrategy endGameStrategy;
     private boolean isActionPhase = false;
-    private boolean isBuyPhase = false;
     private final Turn turn;
     private ArrayList<BuyDeck> supply; //balicek balickov kariet
 
@@ -36,13 +35,13 @@ public class Game {
         DiscardPile discardPile = new DiscardPile(new ArrayList<>());
         Deck deck = new Deck(discardPile);
         //inicialize turnstatus
-        setBuyPhase(true);
+        setActionPhase(false);
         TurnStatus ts = new TurnStatus();
         ts.addActions(1);
         ts.addBuys(1);
         ts.addCoins(0);
         Hand hand = new Hand(deck);
-        Play play = new Play(deck, hand, discardPile, ts);
+        Play play = new Play(deck, hand, ts);
         turn = new Turn(ts, hand, deck, discardPile, play, this.supply);
     }
 
@@ -57,34 +56,26 @@ public class Game {
         isActionPhase = bool;
     }
 
-    public void setBuyPhase(boolean bool) {
-        isBuyPhase = bool;
-    }
-
     public boolean isActionPhase() {
         return isActionPhase;
     }
 
-    public boolean isBuyPhase() {
-        return isBuyPhase;
-    }
-
-    public boolean endPlayCard() {
-        return false;
-    }
 
     public boolean buyCard(CardInterface card) {
-        if (!isBuyPhase()) {
+        if (isGameOver()) {
+            return false;
+        }
+        if (isActionPhase()) {
             return false;
         }
         return turn.buyCard(card);
     }
 
     public boolean endTurn() {
-        if (!isActionPhase() && !isBuyPhase()) {
-            return turn.endTurn();
+        if (isGameOver()) {
+            return false;
         }
-        return false;
+        return turn.endTurn();
     }
 
     public boolean isGameOver() {

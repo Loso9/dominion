@@ -32,6 +32,11 @@ public class DiscardPile {
         cards = new ArrayList<>();
         return cardsToSend;
     }
+
+    public List<CardInterface> getCards() {
+        return cards;
+    }
+
 }
         
         
