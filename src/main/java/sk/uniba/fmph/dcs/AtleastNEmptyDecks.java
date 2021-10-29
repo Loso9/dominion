@@ -5,12 +5,13 @@ import java.util.*;
 public class AtleastNEmptyDecks implements EndGameStrategy {
 
     ArrayList<BuyDeck> supply;
+    private final int numOfEmptyDecks;
 
-    public AtleastNEmptyDecks(List<BuyDeck> supply) {
+    public AtleastNEmptyDecks(List<BuyDeck> supply, int numOfEmptyDecks) {
+        this.numOfEmptyDecks = numOfEmptyDecks;
         this.supply = new ArrayList<>(supply);
     }
 
-    //ak su 3 buydecky prazdne
     @Override
     public boolean isGameOver() {
         int count = 0;
@@ -19,6 +20,6 @@ public class AtleastNEmptyDecks implements EndGameStrategy {
                 count++;
             }
         }
-        return count >= 3;
+        return count >= numOfEmptyDecks;
     }
 }
