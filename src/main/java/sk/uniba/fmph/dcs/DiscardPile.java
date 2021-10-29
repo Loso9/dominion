@@ -33,6 +33,10 @@ public class DiscardPile {
         return cardsToSend;
     }
 
+    public void addCard(CardInterface card) {
+        cards.add(card);
+    }
+
     public List<CardInterface> getCards() {
         return cards;
     }
