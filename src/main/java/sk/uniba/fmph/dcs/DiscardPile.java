@@ -5,10 +5,6 @@ import java.util.*;
 public class DiscardPile {
     List<CardInterface> cards;
 
-    public DiscardPile() {
-        cards = new ArrayList<>();
-    }
-
     public DiscardPile(List<CardInterface> cards) {
         this.cards = cards;
     }
@@ -39,6 +35,14 @@ public class DiscardPile {
 
     public List<CardInterface> getCards() {
         return cards;
+    }
+
+    public int getPoints() {
+        int points = 0;
+        for (CardInterface card : cards) {
+            points += card.cardType().getPoints();
+        }
+        return points;
     }
 
 }

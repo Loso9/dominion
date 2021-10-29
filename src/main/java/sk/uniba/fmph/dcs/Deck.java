@@ -52,4 +52,12 @@ public class Deck {
         }
         return deck;
     }
+
+    public int getPoints() {
+        int points = 0;
+        for (CardInterface card : deckOfCards) {
+            points += card.cardType().getPoints();
+        }
+        return points;
+    }
 }

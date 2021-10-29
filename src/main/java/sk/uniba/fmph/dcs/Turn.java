@@ -81,14 +81,7 @@ public class Turn {
     }
 
     public void setPoints() {
-        int points = 0;
-        ArrayList<CardInterface> cards = new ArrayList<>(deck.getDeckOfCards());
-        //cardsFromDeck.addAll(hand.getCards()); not sure, whether cards on hand generate points aswell
-        cards.addAll(discardPile.getCards());
-        for (CardInterface cardInterface : cards) {
-            points += cardInterface.cardType().getPoints();
-        }
+        int points = deck.getPoints() + discardPile.getPoints();
         ts.setPoints(points);
-
     }
 }
