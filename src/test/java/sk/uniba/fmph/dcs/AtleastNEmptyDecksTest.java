@@ -13,7 +13,7 @@ public class AtleastNEmptyDecksTest {
     private AtleastNEmptyDecks atleast1EmptyDeckTest;
     private AtleastNEmptyDecks atleast3EmptyDecksTest;
 
-    void setUp() {
+    private void setUp() {
 
         BuyDeck buyDeck1 = new BuyDeck(GameCardType.GAME_CARD_TYPE_ESTATE, 10);
         BuyDeck buyDeck2 = new BuyDeck(GameCardType.GAME_CARD_TYPE_PROVINCE, 8);
@@ -27,7 +27,7 @@ public class AtleastNEmptyDecksTest {
 
     }
 
-    public void addLists(BuyDeck... lists) {
+    private void addLists(BuyDeck... lists) {
         supply = new ArrayList<>(Arrays.asList(lists));
     }
 

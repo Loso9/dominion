@@ -22,7 +22,7 @@ public class BuyDeckTest {
     BuyDeck testBuyDeck3;
     BuyDeck testBuyDeck4;
 
-    void setUp() {
+    private void setUp() {
 
         testBuyDeck1 = new BuyDeck(GameCardType.GAME_CARD_TYPE_VILLAGE, 1);
         testBuyDeck2 = new BuyDeck(GameCardType.GAME_CARD_TYPE_FESTIVAL, 4);
@@ -31,19 +31,19 @@ public class BuyDeckTest {
 
     }
 
-    public void assertEmpty(BuyDeck buyDeck) {
+    private void assertEmpty(BuyDeck buyDeck) {
         assertTrue(buyDeck.isEmpty());
     }
 
-    public void assertNotEmpty(BuyDeck buyDeck) {
+    private void assertNotEmpty(BuyDeck buyDeck) {
         assertFalse(buyDeck.isEmpty());
     }
 
-    public void assertSize(BuyDeck buyDeck, int size) {
+    private void assertSize(BuyDeck buyDeck, int size) {
         assertEquals(size, buyDeck.size());
     }
 
-    public void assertCardType(BuyDeck buyDeck, GameCardType cardType) {
+    private void assertCardType(BuyDeck buyDeck, GameCardType cardType) {
         assertEquals(cardType, buyDeck.getGameCardType());
     }
 

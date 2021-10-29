@@ -21,7 +21,7 @@ public class DeckTest {
     private Deck testDeck5;
     private Deck testDeck6;
 
-    void setUp() {
+    private void setUp() {
 
         /*
          * variables for drawCountTesting
