@@ -38,27 +38,27 @@ public class Turn {
 
     public boolean buyCard(CardInterface card) {
         BuyDeck buyDeck = findBuyDeck(card);
+        if (buyDeck == null) return false;
         if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= card.cardType().getCost()) {
             ts.addCoins(-card.cardType().getCost());
+            ts.addBuys(-1);
             Optional<CardInterface> newCard = buyDeck.buy();
             if (newCard.isPresent()) {
-                hand.addCardToHand(newCard.get());
+                discardPile.addCard(newCard.get());
                 return true;
             }
         }
         return false;
     }
 
-    public boolean endTurn() {
+    public void endTurn() {
         if (!endTurnCalled) {
             discardPile.addCards(play.throwAll());
             discardPile.addCards(hand.throwCards());
             endTurnCalled = true;
             resetTurnStatus();
             hand.addCardsToHand(deck.draw(5));
-            return true;
         }
-        else return false;
     }
 
 

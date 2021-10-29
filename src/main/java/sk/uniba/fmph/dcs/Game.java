@@ -10,26 +10,7 @@ public class Game {
     private ArrayList<BuyDeck> supply; //balicek balickov kariet
     private boolean end = false;
     private TurnStatus ts;
-
-    /*
-    pripadne List<BuyDeck> priamo v konstruktore Game
-    ArrayList<BuyDeck> supply = new ArrayList<>();
-    BuyDeck estates = new BuyDeck(GAME_CARD_TYPE_ESTATE, countCard);
-    supply.add(estates);
-    BuyDeck smithies = new BuyDeck(GAME_CARD_TYPE_SMITHY, countCard);
-    supply.add(smithies);
-    BuyDeck coppers = new BuyDeck(GAME_CARD_TYPE_COPPER, countCard);
-    supply.add(coppers);
-    BuyDeck markets = new BuyDeck(GAME_CARD_TYPE_MARKET, countCard);
-    supply.add(markets);
-    BuyDeck villages = new BuyDeck(GAME_CARD_TYPE_MARKET, countCard);
-    supply.add(villages);
-    BuyDeck festivals = new BuyDeck(GAME_CARD_TYPE_FESTIVAL, countCard);
-    supply.add(festivals);
-    BuyDeck laboratories = new BuyDeck(GAME_CARD_TYPE_LABORATORY, countCard);
-    supply.add()
-
-     */
+    private boolean winnerFound = false;
 
     public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks) {
         this.endGameStrategy = endGameStrategy;
@@ -47,7 +28,13 @@ public class Game {
         turn = new Turn(ts, hand, deck, discardPile, play, this.supply);
     }
 
+    /*
+    * V oboch buyCard, playCard metodach nema vyznam skusat, ak uz je gameover
+     */
     public boolean playCard(Integer index) {
+        if (isGameOver()) {
+            return false;
+        }
         if (!isActionPhase()) {
             return false;
         }
@@ -64,22 +51,29 @@ public class Game {
 
 
     public boolean buyCard(CardInterface card) {
-        if (isGameOver()) {
-            return false;
-        }
-        if (isActionPhase()) {
-            return false;
-        }
+        if (isGameOver()) return false;
+        if (isActionPhase()) return false;
         return turn.buyCard(card);
     }
 
-    public boolean endTurn() {
-        if (isGameOver()) {
-            return false;
-        }
-        turn.endTurn();
+    public boolean endPlayCardPhase() {
+        if (isGameOver()) return false;
+        if (!isActionPhase()) return false;
+        setActionPhase(false);
+        return true;
+    }
 
-        return turn.endTurn();
+    public boolean endTurn() {
+        if (isGameOver()) return false;
+        turn.endTurn();
+        boolean isEnd = endGameStrategy.isGameOver();
+        if (isEnd) {
+            endTheGame();
+            printResults();
+            return winnerFound;
+        }
+        setActionPhase(true);
+        return true;
     }
 
     public boolean isGameOver() {
@@ -89,7 +83,20 @@ public class Game {
     public void endTheGame() {
         turn.setPoints();
         if (ts.getPoints() >= 15) {
-            end = true;
+            winnerFound = true;//winner found
+        }
+    }
+
+    public boolean wasWinnerFound() {
+        return winnerFound;
+    }
+
+    public void printResults() {
+        if (wasWinnerFound()) {
+            System.out.println("Hrac zvitazil s " + ts.getPoints());
+        }
+        else {
+            System.out.println("Hra skoncila bez vitaza, hrac ziskal len " + ts.getPoints());
         }
     }
 }
