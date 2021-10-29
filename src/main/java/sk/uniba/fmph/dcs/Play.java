@@ -21,4 +21,12 @@ public class Play {
         return returnCards;
     }
 
+    public int size() {
+        return cardsInPlay.size();
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
 }
