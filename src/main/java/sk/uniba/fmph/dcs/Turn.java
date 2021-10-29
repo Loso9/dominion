@@ -24,10 +24,11 @@ public class Turn {
 
     public boolean playCard(Integer index) {
         if (!hand.isCardInHand(index)) return false;
-        if (hand.isActionCard(index) && ts.getActions() > 0) {
-            ts.addActions(ts.getActions() - 1);
+        if (hand.isActionCard(index)) {
+            if (ts.getActions() > 0) {
+                ts.addActions(ts.getActions() - 1);
+            } else return false;
         }
-        else return false;
         Optional<CardInterface> cardToPlay = hand.play(index);
         if (cardToPlay.isPresent()) {
             int plusCards = cardToPlay.get().evaluate(ts);
