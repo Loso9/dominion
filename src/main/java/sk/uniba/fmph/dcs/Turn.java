@@ -4,25 +4,22 @@ import java.util.*;
 
 public class Turn {
 
-    private TurnStatus ts;
-    private Deck deck;
-    private Hand hand;
-    private DiscardPile discardPile;
-    private Play play;
+    private final TurnStatus ts;
+    private final Deck deck;
+    private final Hand hand;
+    private final DiscardPile discardPile;
+    private final Play play;
     private boolean endTurnCalled = false;
-    private ArrayList<BuyDeck> supply;
+    private final ArrayList<BuyDeck> supply;
 
-    public Turn(TurnStatus ts) {
+    public Turn(TurnStatus ts, List<BuyDeck> supply) {
         this.ts = ts;
-    }
-
-    public Turn(TurnStatus ts, Hand hand, Deck deck, DiscardPile discardPile, Play play, List<BuyDeck> supply) {
-        this.ts = ts;
-        this.deck = deck;
-        this.hand = hand;
-        this.discardPile = discardPile;
-        this.play = play;
+        discardPile = new DiscardPile(new ArrayList<>());
+        deck = new Deck(discardPile);
+        hand = new Hand(deck);
+        play = new Play();
         this.supply = new ArrayList<>(supply);
+        resetTurnStatus();
     }
 
     public boolean playCard(Integer index) {
@@ -32,18 +29,23 @@ public class Turn {
         }
         else return false;
         Optional<CardInterface> cardToPlay = hand.play(index);
-        cardToPlay.ifPresent(cardInterface -> play.putTo(cardInterface));
-        return true;
+        if (cardToPlay.isPresent()) {
+            int plusCards = cardToPlay.get().evaluate(ts);
+            play.putTo(cardToPlay.get());
+            hand.addCardsToHand(plusCards);
+            return true;
+        }
+        else return false;
     }
 
     public boolean buyCard(CardInterface card) {
         BuyDeck buyDeck = findBuyDeck(card);
         if (buyDeck == null) return false;
         if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= card.cardType().getCost()) {
-            ts.addCoins(-card.cardType().getCost());
-            ts.addBuys(-1);
             Optional<CardInterface> newCard = buyDeck.buy();
             if (newCard.isPresent()) {
+                ts.addCoins(-card.cardType().getCost()); //subtract
+                ts.addBuys(-1);
                 discardPile.addCard(newCard.get());
                 return true;
             }
@@ -57,7 +59,7 @@ public class Turn {
             discardPile.addCards(hand.throwCards());
             endTurnCalled = true;
             resetTurnStatus();
-            hand.addCardsToHand(deck.draw(5));
+            hand.addCardsToHand(5);
         }
     }
 
@@ -80,13 +82,11 @@ public class Turn {
 
     public void setPoints() {
         int points = 0;
-        ArrayList<CardInterface> cardsFromDeck = new ArrayList<>(deck.getDeckOfCards());
-        cardsFromDeck.addAll(hand.getCards());
-        cardsFromDeck.addAll(discardPile.getCards());
-        for (CardInterface cardInterface : cardsFromDeck) {
-            if (cardInterface.equals(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE))) {
-                points++;
-            }
+        ArrayList<CardInterface> cards = new ArrayList<>(deck.getDeckOfCards());
+        //cardsFromDeck.addAll(hand.getCards()); not sure, whether cards on hand generate points aswell
+        cards.addAll(discardPile.getCards());
+        for (CardInterface cardInterface : cards) {
+            points += cardInterface.cardType().getPoints();
         }
         ts.setPoints(points);
 

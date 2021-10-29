@@ -7,10 +7,10 @@ public class TurnStatus {
     private int points;
 
     public TurnStatus() {
-        this.actions = 0;
-        this.buys = 0;
-        this.coins = 0;
-        this.points = 0;
+        setPoints(0);
+        setActions(1);
+        setCoins(0);
+        setBuys(1);
     }
 
     @Override

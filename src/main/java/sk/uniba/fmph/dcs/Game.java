@@ -9,28 +9,21 @@ public class Game {
     private final Turn turn;
     private ArrayList<BuyDeck> supply; //balicek balickov kariet
     private boolean end = false;
-    private TurnStatus ts;
-    private boolean winnerFound = false;
+    private final TurnStatus ts;
+    private boolean winnerFound;
+    private boolean gameEnded;
 
     public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks) {
         this.endGameStrategy = endGameStrategy;
         this.supply = new ArrayList<>(buyDecks);
-        DiscardPile discardPile = new DiscardPile(new ArrayList<>());
-        Deck deck = new Deck(discardPile);
         //inicialize turnstatus
         setActionPhase(false);
         this.ts = new TurnStatus();
-        ts.addActions(1);
-        ts.addBuys(1);
-        ts.addCoins(0);
-        Hand hand = new Hand(deck);
-        Play play = new Play(deck, hand, ts);
-        turn = new Turn(ts, hand, deck, discardPile, play, this.supply);
+        turn = new Turn(ts, this.supply);
+        winnerFound = false;
+        gameEnded = false;
     }
 
-    /*
-    * V oboch buyCard, playCard metodach nema vyznam skusat, ak uz je gameover
-     */
     public boolean playCard(Integer index) {
         if (isGameOver()) {
             return false;
@@ -66,21 +59,23 @@ public class Game {
     public boolean endTurn() {
         if (isGameOver()) return false;
         turn.endTurn();
-        boolean isEnd = endGameStrategy.isGameOver();
+        boolean isEnd = isGameOver();
         if (isEnd) {
             endTheGame();
             printResults();
-            return winnerFound;
+            return true;
         }
-        setActionPhase(true);
+        setActionPhase(false);
         return true;
     }
 
     public boolean isGameOver() {
+        if (gameEnded) return true;
         return endGameStrategy.isGameOver();
     }
 
     public void endTheGame() {
+        gameEnded = true;
         turn.setPoints();
         if (ts.getPoints() >= 15) {
             winnerFound = true;//winner found
@@ -93,10 +88,10 @@ public class Game {
 
     public void printResults() {
         if (wasWinnerFound()) {
-            System.out.println("Hrac zvitazil s " + ts.getPoints());
+            System.out.println("Player won with " + ts.getPoints() + " points.");
         }
         else {
-            System.out.println("Hra skoncila bez vitaza, hrac ziskal len " + ts.getPoints());
+            System.out.println("Game ended with no winner, player only got " + ts.getPoints() + " points.");
         }
     }
 }

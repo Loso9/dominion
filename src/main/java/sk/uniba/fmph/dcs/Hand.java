@@ -5,25 +5,25 @@ import java.util.*;
 public class Hand {
 
     private final LinkedList<CardInterface> cardsInHand;
-
-    public Hand() {
-        cardsInHand = new LinkedList<>();
-    }
+    private final Deck deckOfCards;
 
     public Hand(Deck deckOfCards) {
-        cardsInHand = new LinkedList<>(deckOfCards.draw(5));
+        this.deckOfCards = deckOfCards;
+        cardsInHand = new LinkedList<>();
+        addCardsToHand(5);
 
     }
 
     public boolean isActionCard(Integer index) {
+        if (!isCardInHand(index)) return false;
         return cardsInHand.get(index).cardType().isAction();
     }
 
     public Optional<CardInterface> play(Integer index) {
-        if (index > cardsInHand.size()) {
-            return Optional.empty();
-        }
-        return Optional.of(cardsInHand.get(index));
+        if (!isCardInHand(index)) return Optional.empty();
+        CardInterface card = cardsInHand.get(index);
+        cardsInHand.remove(card);
+        return Optional.of(card);
     }
 
     public Integer size() {
@@ -40,8 +40,8 @@ public class Hand {
         return returnCards;
     }
 
-    public void addCardsToHand(List<CardInterface> cards) {
-        cardsInHand.addAll(cards);
+    public void addCardsToHand(int countCard) {
+        cardsInHand.addAll(deckOfCards.draw(countCard));
     }
 
     public void addCardToHand(CardInterface card) {

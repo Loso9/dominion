@@ -5,23 +5,12 @@ import java.util.*;
 public class Deck {
 
     private final LinkedList<CardInterface> deckOfCards;
-    private DiscardPile discardPile;
+    private final DiscardPile discardPile;
 
     public Deck(DiscardPile discardPile) {
-        deckOfCards = new LinkedList<>();
-        for (int i = 0; i < 3; i++) {
-            deckOfCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
-        }
-
-        for (int j = 0; j < 7; j++) {
-            deckOfCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
-        }
+        deckOfCards = new LinkedList<>(initDeck());
         shuffle();
         this.discardPile = discardPile;
-    }
-
-    public Deck(List<CardInterface> cards) {
-        this.deckOfCards = new LinkedList<>(cards);
     }
 
     public void shuffle() {
@@ -45,5 +34,16 @@ public class Deck {
 
     public LinkedList<CardInterface> getDeckOfCards() {
         return deckOfCards;
+    }
+
+    public List<CardInterface> initDeck() {
+        LinkedList<CardInterface> deck = new LinkedList<>();
+        for (int i = 0; i < 3; i++) {
+            deck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
+        }
+        for (int j = 0; j < 7; j++) {
+            deck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
+        }
+        return deck;
     }
 }
