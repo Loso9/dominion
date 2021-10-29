@@ -13,6 +13,12 @@ public class Deck {
         this.discardPile = discardPile;
     }
 
+    public Deck(DiscardPile discardPile, List<CardInterface> deckOfCards) {
+        this.discardPile = discardPile;
+        this.deckOfCards = new LinkedList<>(deckOfCards);
+        shuffle();
+    }
+
     public void shuffle() {
         Collections.shuffle(deckOfCards);
     }
