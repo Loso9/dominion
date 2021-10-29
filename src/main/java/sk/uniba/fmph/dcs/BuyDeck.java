@@ -4,32 +4,29 @@ import java.util.*;
 
 public class BuyDeck {
 
-    private final ArrayList<CardInterface> supply;
-    private int countCard;
+    private final LinkedList<CardInterface> buyDeck;
     private final GameCardType gameCardType;
 
-    public BuyDeck(GameCardType gameCardType, int countCard) {
+    public BuyDeck(GameCardType gameCardType, int cardCount) {
         this.gameCardType = gameCardType;
-        this.supply = new ArrayList<>();
-        this.countCard = countCard;
-        for (int i = 0; i < countCard; i++) {
-            supply.add(new GameCard(gameCardType));
+        this.buyDeck = new LinkedList<>();
+        for (int i = 0; i < cardCount; i++) {
+            buyDeck.add(new GameCard(gameCardType));
         }
     }
 
     public Optional<CardInterface> buy() {
         CardInterface card;
-        card = supply.remove(0);
-        countCard--;
+        card = buyDeck.removeFirst();
         return Optional.ofNullable(card);
     }
 
-    public int getCountCard() {
-        return countCard;
+    public int size() {
+        return buyDeck.size();
     }
 
     public boolean isEmpty() {
-        return getCountCard() == 0;
+        return size() == 0;
     }
 
     public GameCardType getGameCardType() {
