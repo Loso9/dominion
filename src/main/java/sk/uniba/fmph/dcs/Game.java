@@ -16,7 +16,7 @@ public class Game {
         //balicek balickov kariet
         ArrayList<BuyDeck> supply = new ArrayList<>(buyDecks);
         //inicialize turnstatus
-        setActionPhase(false);
+        setActionPhase(true);
         this.ts = new TurnStatus();
         turn = new Turn(ts, supply);
         winnerFound = false;
@@ -112,4 +112,26 @@ public class Game {
             System.out.println("Game ended with no winner, player only got " + ts.getPoints() + " points.");
         }
     }
+
+    public int getActions() {
+        return ts.getActions();
+    }
+
+    public int getBuys() {
+        return ts.getBuys();
+    }
+
+    public int getCoins() {
+        return ts.getCoins();
+    }
+
+    public int getPoints() {
+        turn.setPoints();
+        return ts.getPoints();
+    }
+
+    public void setEndGame() {
+        gameEnded = true;
+    }
+
 }
