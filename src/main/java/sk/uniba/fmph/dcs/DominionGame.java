@@ -23,6 +23,25 @@ public class DominionGame implements SimpleDominionInterface {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<GameState> playCard(CardInterface card) {
+        boolean playCard = newGame.playCard(card);
+        if (!playCard) {
+            System.out.println("You are either trying to play card in BuyPhase or Game has already ended.");
+            return Optional.empty();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<GameState> buyCard(int index) {
+        boolean buyCard = newGame.buyCard(index);
+        if (!buyCard) {
+            System.out.println("You are either trying to buy in BuyPhase or Game has already ended.");
+            return Optional.empty();
+        }
+        return Optional.empty();
+    }
 
     @Override
     public Optional<GameState> buyCard(CardInterface card) {

@@ -4,27 +4,26 @@ import java.util.*;
 
 public class Game {
 
-    private EndGameStrategy endGameStrategy;
+    private final EndGameStrategy endGameStrategy;
     private boolean isActionPhase = false;
     private final Turn turn;
-    private ArrayList<BuyDeck> supply; //balicek balickov kariet
-    private boolean end = false;
     private final TurnStatus ts;
     private boolean winnerFound;
     private boolean gameEnded;
 
     public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks) {
         this.endGameStrategy = endGameStrategy;
-        this.supply = new ArrayList<>(buyDecks);
+        //balicek balickov kariet
+        ArrayList<BuyDeck> supply = new ArrayList<>(buyDecks);
         //inicialize turnstatus
         setActionPhase(false);
         this.ts = new TurnStatus();
-        turn = new Turn(ts, this.supply);
+        turn = new Turn(ts, supply);
         winnerFound = false;
         gameEnded = false;
     }
 
-    public boolean playCard(Integer index) {
+    public boolean playCard(int index) {
         if (isGameOver()) {
             return false;
         }
@@ -32,6 +31,16 @@ public class Game {
             return false;
         }
         return turn.playCard(index);
+    }
+
+    public boolean playCard(CardInterface card) {
+        if (isGameOver()) {
+            return false;
+        }
+        if (!isActionPhase()) {
+            return false;
+        }
+        return turn.playCard(card);
     }
 
     public void setActionPhase(boolean bool) {
@@ -42,6 +51,11 @@ public class Game {
         return isActionPhase;
     }
 
+    public boolean buyCard(int index) {
+        if (isGameOver()) return false;
+        if (isActionPhase()) return false;
+        return turn.buyCard(index);
+    }
 
     public boolean buyCard(CardInterface card) {
         if (isGameOver()) return false;

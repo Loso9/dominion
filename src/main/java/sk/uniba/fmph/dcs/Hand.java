@@ -14,24 +14,41 @@ public class Hand {
 
     }
 
-    public boolean isActionCard(Integer index) {
+    public boolean isActionCard(int index) {
         if (!isCardInHand(index)) return false;
         return cardsInHand.get(index).cardType().isAction();
     }
 
-    public Optional<CardInterface> play(Integer index) {
+    public boolean isActionCard(CardInterface card) {
+        if (!isCardInHand(card)) return false;
+        return card.cardType().isAction();
+    }
+
+    public Optional<CardInterface> play(int index) {
         if (!isCardInHand(index)) return Optional.empty();
         CardInterface card = cardsInHand.get(index);
         cardsInHand.remove(card);
         return Optional.of(card);
     }
 
+    public Optional<CardInterface> play(CardInterface card) {
+        if (!isCardInHand(card)) return Optional.empty();
+        int indexOfCard = cardsInHand.indexOf(card);
+        CardInterface newCard = cardsInHand.get(indexOfCard);
+        cardsInHand.remove(newCard);
+        return Optional.of(newCard);
+    }
+
     public Integer size() {
         return cardsInHand.size();
     }
 
-    public boolean isCardInHand(Integer index) {
+    public boolean isCardInHand(int index) {
         return index < size();
+    }
+
+    public boolean isCardInHand(CardInterface card) {
+        return cardsInHand.contains(card);
     }
 
     public List<CardInterface> throwCards() {

@@ -32,4 +32,8 @@ public class BuyDeck {
     public GameCardType getGameCardType() {
         return gameCardType;
     }
+
+    public int costOfCard() {
+        return gameCardType.getCost();
+    }
 }

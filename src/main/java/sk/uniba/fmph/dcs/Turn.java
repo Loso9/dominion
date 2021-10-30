@@ -22,7 +22,7 @@ public class Turn {
         resetTurnStatus();
     }
 
-    public boolean playCard(Integer index) {
+    public boolean playCard(int index) {
         if (!hand.isCardInHand(index)) return false;
         if (hand.isActionCard(index)) {
             if (ts.getActions() > 0) {
@@ -39,13 +39,46 @@ public class Turn {
         else return false;
     }
 
+    public boolean playCard(CardInterface card) {
+        if (!hand.isCardInHand(card)) return false;
+        if (hand.isActionCard(card)) {
+            if (ts.getActions() > 0) {
+                ts.addActions(ts.getActions() - 1);
+            } else return false;
+        }
+        Optional<CardInterface> cardToPlay = hand.play(card);
+        if (cardToPlay.isPresent()) {
+            int plusCards = cardToPlay.get().evaluate(ts);
+            play.putTo(cardToPlay.get());
+            hand.addCardsToHand(plusCards);
+            return true;
+        }
+        else return false;
+    }
+
+    //index of BuyDeck
+    public boolean buyCard(int index) {
+        BuyDeck buyDeck = supply.get(index);
+        if (buyDeck == null) return false;
+        if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= buyDeck.costOfCard()) {
+            Optional<CardInterface> newCard = buyDeck.buy();
+            if (newCard.isPresent()) {
+                ts.addCoins(-newCard.get().cardType().getCost()); //subtract
+                ts.addBuys(-1);
+                discardPile.addCard(newCard.get());
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean buyCard(CardInterface card) {
         BuyDeck buyDeck = findBuyDeck(card);
         if (buyDeck == null) return false;
         if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= card.cardType().getCost()) {
             Optional<CardInterface> newCard = buyDeck.buy();
             if (newCard.isPresent()) {
-                ts.addCoins(-card.cardType().getCost()); //subtract
+                ts.addCoins(-newCard.get().cardType().getCost()); //subtract
                 ts.addBuys(-1);
                 discardPile.addCard(newCard.get());
                 return true;

@@ -23,8 +23,8 @@ public class Deck {
         Collections.shuffle(deckOfCards);
     }
 
-    public List<CardInterface> draw(Integer count) {
-        Integer cardCount = count;
+    public List<CardInterface> draw(int count) {
+        int cardCount = count;
         if (cardCount > deckOfCards.size()) {
             deckOfCards.addAll(discardPile.shuffle());
         }
