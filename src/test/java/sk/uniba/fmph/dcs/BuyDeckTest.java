@@ -87,7 +87,7 @@ public class BuyDeckTest {
         assertSize(testBuyDeck3, 4);
 
         //tests for testBuyDeck4
-        assertCardType(testBuyDeck4, GameCardType.GAME_CARD_TYPE_PROVINCE);
+        assertCardType(testBuyDeck4, GameCardType.GAME_CARD_TYPE_ESTATE);
         assertEmpty(testBuyDeck4);
         assertSize(testBuyDeck4, 0);
         Optional<CardInterface> buyCard4 = testBuyDeck4.buy();

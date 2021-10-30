@@ -29,6 +29,7 @@ public class AtleastNEmptyDecks implements EndGameStrategy {
 
     public boolean emptyProvinceCardDeck() {
         BuyDeck provinceBuyDeck = findBuyDeck(GameCardType.GAME_CARD_TYPE_PROVINCE);
+        if (provinceBuyDeck == null) return false;
         return provinceBuyDeck.isEmpty();
     }
 

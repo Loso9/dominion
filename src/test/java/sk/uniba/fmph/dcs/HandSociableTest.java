@@ -114,8 +114,8 @@ public class HandSociableTest {
         assertEquals(0, thrownCards4.size());
 
         assertEquals(0, discardPile1.getSize());
-        assertEquals(6, discardPile2.getSize());
-        assertEquals(3, deckOfCards3.size());
+        assertEquals(0, discardPile2.getSize());
+        assertEquals(8, deckOfCards3.size());
 
         assertEquals(0, discardPile4.getSize());
         assertEquals(0, hand4.size());

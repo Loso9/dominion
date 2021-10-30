@@ -22,7 +22,7 @@ public class GameCardTest {
     }
 
     private void assertCardType(GameCard gameCard1, GameCard gameCard2) {
-        assertEquals(gameCard1, gameCard2);
+        assertEquals(gameCard1.cardType().getName(), gameCard2.cardType().getName());
     }
 
     private void assertTurnStatus(TurnStatus ts, int actions, int buys, int coins) {
@@ -63,23 +63,23 @@ public class GameCardTest {
         assertTurnStatus(ts, plusActionsCOPPER + plusActionsESTATE, plusBuysCOPPER + plusBuysESTATE, plusCoinsCOPPER + plusCoinsESTATE);
 
         //mid-turn card evaluation
-        TurnStatus newTurnStatus = new TurnStatus();
+        ts = new TurnStatus();
         int startCoins = 4;
         int startBuys = 2;
         int startActions = 3;
-        newTurnStatus.setCoins(startCoins);
-        newTurnStatus.setBuys(startBuys);
-        newTurnStatus.setActions(startActions);
+        ts.setCoins(startCoins);
+        ts.setBuys(startBuys);
+        ts.setActions(startActions);
 
         assertCardType(gameCard3, new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL));
-        int festivalEvaluated = gameCard3.evaluate(newTurnStatus);
+        int festivalEvaluated = gameCard3.evaluate(ts);
         int plusCardsFESTIVAL = GameCardType.GAME_CARD_TYPE_FESTIVAL.getPlusCards();
 
         assertEquals(festivalEvaluated, plusCardsFESTIVAL);
 
         int plusActionsFESTIVAL = GameCardType.GAME_CARD_TYPE_FESTIVAL.getPlusActions();
-        int plusBuysFESTIVAL = GameCardType.GAME_CARD_TYPE_ESTATE.getPlusBuys();
-        int plusCoinsFESTIVAL = GameCardType.GAME_CARD_TYPE_ESTATE.getPlusCoins();
+        int plusBuysFESTIVAL = GameCardType.GAME_CARD_TYPE_FESTIVAL.getPlusBuys();
+        int plusCoinsFESTIVAL = GameCardType.GAME_CARD_TYPE_FESTIVAL.getPlusCoins();
 
         assertTurnStatus(ts, plusActionsFESTIVAL + startActions, plusBuysFESTIVAL + startBuys, plusCoinsFESTIVAL + startCoins);
 

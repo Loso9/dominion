@@ -24,6 +24,7 @@ public class Turn {
 
     public boolean playCard(int index) {
         if (!hand.isCardInHand(index)) return false;
+        if (hand.getCards().get(index).cardType().getPoints() != 0) return false; //victory cards wont be played
         if (hand.isActionCard(index)) {
             if (ts.getActions() > 0) {
                 ts.addActions(ts.getActions() - 1);
@@ -40,6 +41,7 @@ public class Turn {
     }
 
     public boolean playCard(CardInterface card) {
+        if (card.cardType().getPoints() != 0) return false; //cant play victory cards, they stay with player
         if (!hand.isCardInHand(card)) return false;
         if (hand.isActionCard(card)) {
             if (ts.getActions() > 0) {
@@ -58,6 +60,9 @@ public class Turn {
 
     //index of BuyDeck
     public boolean buyCard(int index) {
+        if (supply.size() == 0) {
+            return false;
+        }
         BuyDeck buyDeck = supply.get(index);
         if (buyDeck == null) return false;
         if (ts.getBuys() > 0 && !buyDeck.isEmpty() && ts.getCoins() >= buyDeck.costOfCard()) {

@@ -17,6 +17,9 @@ public class BuyDeck {
 
     public Optional<CardInterface> buy() {
         CardInterface card;
+        if (isEmpty()) {
+            return Optional.empty();
+        }
         card = buyDeck.removeFirst();
         return Optional.ofNullable(card);
     }

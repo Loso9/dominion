@@ -17,7 +17,7 @@ public class AtleastNEmptyDecksTest {
 
         BuyDeck buyDeck1 = new BuyDeck(GameCardType.GAME_CARD_TYPE_ESTATE, 10);
         BuyDeck buyDeck2 = new BuyDeck(GameCardType.GAME_CARD_TYPE_COPPER, 10);
-        BuyDeck buyDeck3 = new BuyDeck(GameCardType.GAME_CARD_TYPE_FESTIVAL, 10);
+        BuyDeck buyDeck3 = new BuyDeck(GameCardType.GAME_CARD_TYPE_PROVINCE, 10);
         BuyDeck buyDeck4 = new BuyDeck(GameCardType.GAME_CARD_TYPE_LABORATORY, 10);
         BuyDeck buyDeck5 = new BuyDeck(GameCardType.GAME_CARD_TYPE_SMITHY, 10);
         addLists(buyDeck1, buyDeck2, buyDeck3, buyDeck4, buyDeck5);
@@ -43,21 +43,21 @@ public class AtleastNEmptyDecksTest {
         BuyDeck emptyBuyDeck1 = new BuyDeck(GameCardType.GAME_CARD_TYPE_LABORATORY, 0);
         supply.add(emptyBuyDeck1);
         assertTrue(atleast0EmptyDecksTest.isGameOver());
-        assertTrue(atleast1EmptyDeckTest.isGameOver());
+        assertFalse(atleast1EmptyDeckTest.isGameOver());
         assertFalse(atleast3EmptyDecksTest.isGameOver());
 
         //adding two empty decks shouldnt end game for game with atleast3EmptyDecksTest strategy
         BuyDeck emptyBuyDeck2 = new BuyDeck(GameCardType.GAME_CARD_TYPE_VILLAGE, 0);
         supply.add(emptyBuyDeck2);
         assertTrue(atleast0EmptyDecksTest.isGameOver());
-        assertTrue(atleast1EmptyDeckTest.isGameOver());
+        assertFalse(atleast1EmptyDeckTest.isGameOver());
         assertFalse(atleast3EmptyDecksTest.isGameOver());
 
         BuyDeck emptyBuyDeck3 = new BuyDeck(GameCardType.GAME_CARD_TYPE_SMITHY, 0);
         supply.add(emptyBuyDeck3);
         assertTrue(atleast0EmptyDecksTest.isGameOver());
-        assertTrue(atleast1EmptyDeckTest.isGameOver());
-        assertTrue(atleast3EmptyDecksTest.isGameOver());
+        assertFalse(atleast1EmptyDeckTest.isGameOver());
+        assertFalse(atleast3EmptyDecksTest.isGameOver());
 
         supply.remove(emptyBuyDeck1);
         supply.remove(emptyBuyDeck2);
@@ -68,7 +68,7 @@ public class AtleastNEmptyDecksTest {
         assertFalse(newAtleast5EmptyDeck.isGameOver());
 
         supply.add(emptyProvinces);
-        assertTrue(newAtleast5EmptyDeck.isGameOver());
+        assertFalse(newAtleast5EmptyDeck.isGameOver());
 
     }
 
