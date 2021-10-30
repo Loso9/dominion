@@ -2,7 +2,7 @@ package sk.uniba.fmph.dcs;
 
 import java.util.*;
 
-public class Deck {
+public class Deck implements DeckInterface {
 
     private final LinkedList<CardInterface> deckOfCards;
     private final DiscardPile discardPile;
@@ -38,7 +38,7 @@ public class Deck {
         return Collections.unmodifiableList(returnList);
     }
 
-    public LinkedList<CardInterface> getDeckOfCards() {
+    public List<CardInterface> getDeckOfCards() {
         return deckOfCards;
     }
 

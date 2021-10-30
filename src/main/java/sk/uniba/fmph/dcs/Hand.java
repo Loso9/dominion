@@ -5,9 +5,9 @@ import java.util.*;
 public class Hand {
 
     private final LinkedList<CardInterface> cardsInHand;
-    private final Deck deckOfCards;
+    private final DeckInterface deckOfCards;
 
-    public Hand(Deck deckOfCards) {
+    public Hand(DeckInterface deckOfCards) {
         this.deckOfCards = deckOfCards;
         cardsInHand = new LinkedList<>();
         addCardsToHand(5);
