@@ -39,7 +39,7 @@ public class Hand {
         return Optional.of(newCard);
     }
 
-    public Integer size() {
+    public int size() {
         return cardsInHand.size();
     }
 
