@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DominionGame implements SimpleDominionInterface {
 
-    List<BuyDeck> supply;
+    public static List<BuyDeck> supply;
     private final Game newGame;
 
     public DominionGame() {

@@ -79,7 +79,7 @@ public class Game {
             printResults();
             return true;
         }
-        setActionPhase(false);
+        setActionPhase(true);
         return true;
     }
 
@@ -98,6 +98,10 @@ public class Game {
 
     public boolean wasWinnerFound() {
         return winnerFound;
+    }
+
+    public boolean wasGameFinished() {
+        return gameEnded;
     }
 
     public void printResults() {
