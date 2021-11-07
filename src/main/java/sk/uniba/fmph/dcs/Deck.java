@@ -5,17 +5,18 @@ import java.util.*;
 public class Deck implements DeckInterface {
 
     private final LinkedList<CardInterface> deckOfCards;
-    private final DiscardPile discardPile;
-
-    public Deck(DiscardPile discardPile) {
-        deckOfCards = new LinkedList<>(initDeck());
-        shuffle();
+    private final DiscardPileInterface discardPile;
+    private final Shuffler myShuffler;
+    public Deck(DiscardPileInterface discardPile) {
+        myShuffler = new Shuffler(initDeck());
+        deckOfCards = new LinkedList<>(myShuffler.shuffle());
         this.discardPile = discardPile;
     }
 
-    public Deck(DiscardPile discardPile, List<CardInterface> deckOfCards) {
+    public Deck(DiscardPileInterface discardPile, List<CardInterface> deckOfCards) {
         this.discardPile = discardPile;
-        this.deckOfCards = new LinkedList<>(deckOfCards);
+        myShuffler = new Shuffler(deckOfCards);
+        this.deckOfCards = new LinkedList<>(myShuffler.shuffle());
         shuffle();
     }
 
@@ -26,7 +27,7 @@ public class Deck implements DeckInterface {
     public List<CardInterface> draw(int count) {
         int cardCount = count;
         if (cardCount > deckOfCards.size()) {
-            deckOfCards.addAll(discardPile.shuffle());
+            deckOfCards.addAll(discardPile.getShuffledCards());
         }
         if (cardCount > deckOfCards.size()) {
             cardCount = deckOfCards.size();

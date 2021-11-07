@@ -1,8 +1,6 @@
 package sk.uniba.fmph.dcs;
 
-import java.util.*;
-
-interface CardInterface {
+public interface CardInterface {
     int evaluate(TurnStatus ts);
     GameCardType cardType();
 }

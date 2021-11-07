@@ -2,8 +2,9 @@ package sk.uniba.fmph.dcs;
 
 import java.util.*;
 
-public class DiscardPile {
-    List<CardInterface> cards;
+public class DiscardPile implements DiscardPileInterface {
+
+    private List<CardInterface> cards;
 
     public DiscardPile(List<CardInterface> cards) {
         this.cards = cards;
@@ -21,13 +22,6 @@ public class DiscardPile {
     public int getSize() {
         return cards.size();
     }
-        
-    public List<CardInterface> shuffle() {
-        Collections.shuffle(cards);
-        List<CardInterface> cardsToSend = cards;
-        cards = new ArrayList<>();
-        return cardsToSend;
-    }
 
     public void addCard(CardInterface card) {
         cards.add(card);
@@ -43,6 +37,13 @@ public class DiscardPile {
             points += card.cardType().getPoints();
         }
         return points;
+    }
+
+    public List<CardInterface> getShuffledCards() {
+        Shuffler shuffler = new Shuffler(cards);
+        List<CardInterface> cardsToSend = shuffler.shuffle();
+        cards = new ArrayList<>();
+        return cardsToSend;
     }
 
 }

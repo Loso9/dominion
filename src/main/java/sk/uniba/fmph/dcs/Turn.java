@@ -7,7 +7,7 @@ public class Turn {
     private final TurnStatus ts;
     private final Deck deck;
     private final Hand hand;
-    private final DiscardPile discardPile;
+    private final DiscardPileInterface discardPile;
     private final Play play;
     private boolean endTurnCalled = false;
     private final ArrayList<BuyDeck> supply;
