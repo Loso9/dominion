@@ -20,8 +20,8 @@ public class TurnTest {
         ArrayList<BuyDeck> supply2 = new ArrayList<>();
         supply2.add(new BuyDeck(GameCardType.GAME_CARD_TYPE_COPPER, 1));
 
-        turn1 = new Turn(ts1, supply1);
-        turn2 = new Turn(ts2, supply2);
+        turn1 = new Turn(ts1, supply1, true);
+        turn2 = new Turn(ts2, supply2, true);
     }
 
     @Test

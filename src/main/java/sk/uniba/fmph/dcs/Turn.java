@@ -12,9 +12,14 @@ public class Turn {
     private boolean endTurnCalled = false;
     private final ArrayList<BuyDeck> supply;
 
-    public Turn(TurnStatus ts, List<BuyDeck> supply) {
+    public Turn(TurnStatus ts, List<BuyDeck> supply, boolean shuffling) {
         this.ts = ts;
-        discardPile = new DiscardPile(new ArrayList<>());
+        if (shuffling) {
+            discardPile = new DiscardPile(new ArrayList<>());
+        }
+        else {
+            discardPile = new NonShufflingDiscardPile(new ArrayList<>());
+        }
         deck = new Deck(discardPile);
         hand = new Hand(deck);
         play = new Play();

@@ -11,14 +11,14 @@ public class Game {
     private boolean winnerFound;
     private boolean gameEnded;
 
-    public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks) {
+    public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks, boolean shuffling) {
         this.endGameStrategy = endGameStrategy;
         //balicek balickov kariet
         ArrayList<BuyDeck> supply = new ArrayList<>(buyDecks);
         //inicialize turnstatus
         setActionPhase(true);
         this.ts = new TurnStatus();
-        turn = new Turn(ts, supply);
+        turn = new Turn(ts, supply, shuffling);
         winnerFound = false;
         gameEnded = false;
     }

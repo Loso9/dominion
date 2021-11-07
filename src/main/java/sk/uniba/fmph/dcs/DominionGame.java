@@ -10,7 +10,7 @@ public class DominionGame implements SimpleDominionInterface {
     public DominionGame() {
         supply = createSupply();
         EndGameStrategy myEndGameStrategy = new AtleastNEmptyDecks(supply, 3);
-        this.newGame = new Game(myEndGameStrategy, supply);
+        this.newGame = new Game(myEndGameStrategy, supply, true);
     }
 
     @Override
