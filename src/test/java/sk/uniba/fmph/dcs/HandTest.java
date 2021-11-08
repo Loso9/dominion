@@ -11,7 +11,6 @@ public class HandTest {
      * doesnt not fetch deterministic results
      */
 
-
     private static final GameCardType fakeCardTypeNoAction = new GameCardType(0, 0, 0, 0, 0, 0, false, "fakeNoAction", "0");
     private static final GameCardType fakeCardTypeAction = new GameCardType(0, 0, 0, 0, 0, 0, true, "fakeAction", "1");
 
@@ -28,6 +27,7 @@ public class HandTest {
          * draw method instead of reducing the size of deck, it creates the cards and adds them to deck
          * - first card is blank action card, and the other are blank noaction cards
          */
+
         @Override
         public List<CardInterface> draw(int count) {
             fakeDeckOfCards = new LinkedList<>();
@@ -78,21 +78,12 @@ public class HandTest {
         setUp();
 
         int n = 50; //testCount
-        while (n --> 0) {
+        for (int i = 1; i <= 50; i++) {
             //adds n-cards, then n-1 cards, ... -> n(n+1)/2 cards + init 5 cards
-            hand.addCardsToHand(n);
+            hand.addCardsToHand(i);
         }
         thrownCards = new ArrayList<>(hand.throwCards());
-        assertEquals(((long) (n) *(n+1))/2 + 5, thrownCards.size());
-
-        for (int i = 0; i < ( n * (n + 1) / 2) + 5; i++) {
-            if (i != 0) {
-                assertFalse(thrownCards.get(i).cardType().isAction());
-            }
-            else {
-                assertTrue(thrownCards.get(0).cardType().isAction());
-            }
-        }
+        assertEquals(((long) (n) *(n +1))/2 + 5, thrownCards.size());
 
     }
 
@@ -109,7 +100,7 @@ public class HandTest {
         assertTrue(thrownCards.get(0).cardType().isAction());
     }
 
-    /*
+
     @Test
     public void assertNotInitialThrow() {
         setUp();
@@ -124,11 +115,7 @@ public class HandTest {
         while (n --> 0) {
             hand.addCardsToHand(n);
             thrownCards = new ArrayList<>(hand.throwCards());
-            assertTrue(thrownCards.get(0).cardType().isAction());
             assertEquals(n, thrownCards.size());
-            for (int i = 1; i < n; i++) {
-                assertFalse(thrownCards.get(i).cardType().isAction());
-            }
             //throwing cards again shouldnt actually throw any cards
             assertEquals(0, hand.throwCards().size());
         }
@@ -138,10 +125,7 @@ public class HandTest {
         hand.addCardsToHand(0);
         thrownCards = new ArrayList<>(hand.throwCards());
         assertEquals(0, thrownCards.size());
-
     }
-    */
-
 
     @Test
     public void assertPlay() {
