@@ -61,10 +61,6 @@ public class Hand {
         cardsInHand.addAll(deckOfCards.draw(countCard));
     }
 
-    public void addCardToHand(CardInterface card) {
-        cardsInHand.add(card);
-    }
-
     public List<CardInterface> getCards() {
         return cardsInHand;
     }

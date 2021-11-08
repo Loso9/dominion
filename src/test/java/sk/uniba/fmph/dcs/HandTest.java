@@ -6,11 +6,6 @@ import static org.junit.Assert.*;
 
 public class HandTest {
 
-    /*
-     * Havent found a way how to clearly test classes involving hand and method play - the fact, that hand chooses from shuffled deck
-     * doesnt not fetch deterministic results
-     */
-
     private static final GameCardType fakeCardTypeNoAction = new GameCardType(0, 0, 0, 0, 0, 0, false, "fakeNoAction", "0");
     private static final GameCardType fakeCardTypeAction = new GameCardType(0, 0, 0, 0, 0, 0, true, "fakeAction", "1");
 

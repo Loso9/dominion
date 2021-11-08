@@ -47,6 +47,5 @@ public class TurnTest {
         assertEquals(1, ts1.getBuys());
         assertEquals(0, ts1.getCoins());
 
-
     }
 }

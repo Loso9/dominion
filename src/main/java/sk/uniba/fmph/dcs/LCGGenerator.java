@@ -19,7 +19,6 @@ public class LCGGenerator {
         this.m = m;
     }
 
-
     public long nextLong() {
         long next = (a * lastNumber + c) % m;
         lastNumber = next;

@@ -95,10 +95,6 @@ public class BuyDeckTest {
         assertEmpty(testBuyDeck4);
         assertSize(testBuyDeck4, 0);
 
-
-
     }
-
-
 
 }
