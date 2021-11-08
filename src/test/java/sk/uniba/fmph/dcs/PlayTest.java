@@ -37,7 +37,7 @@ public class PlayTest {
         ArrayList<CardInterface> thrownCards = new ArrayList<>(play.throwAll());
         for (CardInterface card : thrownCards) {
             GameCardType cardType = card.cardType();
-            if (returnCards.containsKey(cardType)) {
+            if (!returnCards.containsKey(cardType)) {
                 returnCards.put(cardType, 1);
             } else {
                 returnCards.put(cardType, returnCards.get(cardType) + 1);
