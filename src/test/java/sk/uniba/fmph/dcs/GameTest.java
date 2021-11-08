@@ -26,9 +26,9 @@ public class GameTest {
         BuyDeck provinceForGame3 = new BuyDeck(GameCardType.GAME_CARD_TYPE_PROVINCE, 0);
         supply3.add(provinceForGame3);
 
-        game1 = new Game(supply1, true, new AtleastNEmptyDecks(supply1, 1));
-        game2 = new Game(supply2, true, new AtleastNEmptyDecks(supply2, 1));
-        game3 = new Game(supply3, true, new EmptyProvinceDeck(supply3.get(0)));
+        game1 = new Game(supply1, new AtleastNEmptyDecks(supply1, 1));
+        game2 = new Game(supply2, new AtleastNEmptyDecks(supply2, 1));
+        game3 = new Game(supply3, new EmptyProvinceDeck(supply3.get(0)));
     }
 
     @Test
