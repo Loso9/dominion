@@ -5,7 +5,7 @@ import java.util.*;
 public class Turn {
 
     private final TurnStatus ts;
-    private final Deck deck;
+    private final DeckInterface deck;
     private final Hand hand;
     private final DiscardPileInterface discardPile;
     private final Play play;
@@ -106,7 +106,6 @@ public class Turn {
             hand.addCardsToHand(5);
         }
     }
-
 
     public BuyDeck findBuyDeck(CardInterface card) {
         GameCardType cardType = card.cardType();

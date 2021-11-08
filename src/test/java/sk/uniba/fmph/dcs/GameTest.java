@@ -19,8 +19,8 @@ public class GameTest {
         supply2.add(copper);
         supply2.add(festival);
 
-        game1 = new Game(new AtleastNEmptyDecks(supply1, 1), supply1, true);
-        game2 = new Game(new AtleastNEmptyDecks(supply2, 1), supply2, true);
+        game1 = new Game(supply1, true, new AtleastNEmptyDecks(supply1, 1));
+        game2 = new Game(supply2, true, new AtleastNEmptyDecks(supply2, 1));
     }
 
     @Test

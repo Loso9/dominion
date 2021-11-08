@@ -4,15 +4,15 @@ import java.util.*;
 
 public class Game {
 
-    private final EndGameStrategy endGameStrategy;
+    private final ArrayList<EndGameStrategy> endGameStrategy;
     private boolean isActionPhase = false;
     private final Turn turn;
     private final TurnStatus ts;
     private boolean winnerFound;
     private boolean gameEnded;
 
-    public Game(EndGameStrategy endGameStrategy, List<BuyDeck> buyDecks, boolean shuffling) {
-        this.endGameStrategy = endGameStrategy;
+    public Game(List<BuyDeck> buyDecks, boolean shuffling, EndGameStrategy... endGameStrategy) {
+        this.endGameStrategy = new ArrayList<>(Arrays.asList(endGameStrategy));
         //balicek balickov kariet
         ArrayList<BuyDeck> supply = new ArrayList<>(buyDecks);
         //inicialize turnstatus
@@ -85,7 +85,11 @@ public class Game {
 
     public boolean isGameOver() {
         if (gameEnded) return true;
-        return endGameStrategy.isGameOver();
+        boolean endGameStrategyBoolean = false;
+        for (EndGameStrategy strategy : endGameStrategy) {
+            endGameStrategyBoolean = endGameStrategyBoolean || strategy.isGameOver();
+        }
+        return endGameStrategyBoolean;
     }
 
     public void endTheGame() {
