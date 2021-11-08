@@ -4,7 +4,7 @@
 
 #### Review points and suggestions from Martin Hošek:
 
-- fixing wrong Tests, which were not working due to non-determinstic methods, and adding unchecked possibilities ✔️
+- fixing wrong Tests, which were not working due to non-deterministic methods, and adding unchecked possibilities ✔️
 - implementing my own shuffling method instead of using *shuffle()* from *Collections* ✔️
 (+ added *shuffling* boolean to decide, whether the DiscardPile is going to be native shuffling one or *NonShufflingDiscardPile*) ✔️
 - implementing *NonShufflingDiscardPile* (+ adding *DiscardPileInterface*) ✔️
