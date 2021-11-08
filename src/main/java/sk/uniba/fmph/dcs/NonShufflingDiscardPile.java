@@ -4,6 +4,11 @@ import java.util.*;
 
 public class NonShufflingDiscardPile implements DiscardPileInterface {
 
+    /*
+     * testing is not needed (native discardPile has already been
+     * tested, and shuffling cant be deterministically tested)
+     */
+
     private final LinkedList<CardInterface> cards;
 
     public NonShufflingDiscardPile(List<CardInterface> cards) {
